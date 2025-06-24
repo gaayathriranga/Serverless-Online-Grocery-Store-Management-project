@@ -1,0 +1,21 @@
+name: "Serverless-Online-Grocery-Store-Management-project"
+on:
+  workflow_dispatch: 
+
+jobs:
+  SonarCloudSCan:  #job name
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3 #check the repository in ubuntu-latest
+        with:
+          fetch-depth: 0
+      - name: SonarCloud Scan #scan, build, deploy, test
+        uses: sonarsource/sonarcloud-github-action@master 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=gaayathriranga
+            -Dsonar.projectKey=Serverless-Online-Grocery-Store-Management-project 
+            -Dsonar.python.coverage.reportPaths=coverage.xml
